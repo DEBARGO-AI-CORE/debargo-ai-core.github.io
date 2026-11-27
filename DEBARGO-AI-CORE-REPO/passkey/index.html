@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--
+site/passkey/index.html
+
+	Open this file on a phone after GitHub Pages publishes it.
+
+***HEADER **********************************************************************************
+
+	PURPOSE:	THE MOBILE PAGE ERIC OPENS TO
+			REGISTER A PHONE, APPROVE ONE
+			ACTIVITY, OR START A SESSION.
+
+	NOTES:		PLAIN LANGUAGE. NO SERVICE KEY,
+			ADMIN TOKEN, OR ANON KEY IS
+			EMBEDDED. THE SCRIPT NEXT TO THIS
+			FILE CALLS THE PASSKEY FUNCTION.
+			REF REQ-20261126-PASSKEY.
+			REF REQ-20261127-PASSKEY-PAGES.
+
+********************************************************************************************
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phone key</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4efe6;
+      color: #1d1a16;
+      font: 18px/1.45 Georgia, "Iowan Old Style", Palatino, serif;
+    }
+    main {
+      max-width: 28rem;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+    h1 { font-size: 1.8rem; line-height: 1.15; margin: 0 0 0.5rem; }
+    p { margin: 0 0 1rem; }
+    .note { color: #4e463c; }
+    button, .label input {
+      font: inherit;
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin: 0 0 0.75rem;
+      padding: 0.9rem 1rem;
+      border: 0;
+      border-radius: 999px;
+      background: #234e45;
+      color: #f7f3ea;
+      min-height: 3.25rem;
+    }
+    button.secondary { background: #8a3e34; }
+    button.quiet { background: #e4d8c4; color: #1d1a16; }
+    .label { display: block; margin-bottom: 0.75rem; }
+    input {
+      width: 100%;
+      margin-top: 0.35rem;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid #c9bba4;
+      border-radius: 0.8rem;
+      background: #fffdf8;
+    }
+    .card {
+      background: #fffdf8;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .status { min-height: 1.4rem; margin-top: 0.5rem; }
+    .status.error { color: #8a3e34; }
+    a { color: #234e45; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <!-- STEP 1  PAGE MARKUP. THE SCRIPT CALLS THE JSON API. -->
+  <main>
+    <h1>Eric, this is your phone key</h1>
+    <p class="note">Use your fingerprint or Face ID. The phone keeps that to itself. We only store a public key, never a fingerprint.</p>
+    <p id="status" class="status" role="status"></p>
+    <section id="home-actions">
+      <label class="label">Name for this phone
+        <input id="device-label" maxlength="80" value="Eric's phone">
+      </label>
+      <button id="register" type="button">Register this phone</button>
+      <button id="session" type="button">Start a session</button>
+    </section>
+    <section id="approve-panel" hidden>
+      <div class="card">
+        <p id="approve-summary">Loading what you are approving…</p>
+        <p id="approve-meta" class="note"></p>
+      </div>
+      <button id="approve" type="button">Approve with fingerprint</button>
+      <button id="reject" class="secondary" type="button">Reject</button>
+    </section>
+    <section id="backup" hidden>
+      <button id="backup-button" class="quiet" type="button">Add a backup phone</button>
+      <p id="backup-result" hidden>On the other phone, open this link within 5 minutes:</p>
+      <p><a id="backup-link" href=""></a></p>
+      <button id="end-session" class="quiet" type="button">End session</button>
+    </section>
+  </main>
+  <script type="module" src="./client.js"></script>
+</body>
+</html>
+<!--
+***HISTORY **********************************************************************************
+
+	DATE		REF #			CHANGE REASON
+	----------	----------		-----------------------------------------------------------------
+	2026-11-26	REQ-20261126-PASSKEY	INITIAL CREATION. MOBILE PAGE FOR THE PASSKEY FUNCTION.
+	2026-11-27	REQ-20261127-PASSKEY-PAGES	MOVED TO A STATIC PAGE SO PHONES
+						RECEIVE REAL HTML. THE SCRIPT
+						CALLS THE FUNCTION FOR JSON.
+
+********************************************************************************************
+-->
